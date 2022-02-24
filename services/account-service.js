@@ -23,7 +23,7 @@ class AccountService {
 
         // Add account to the DB
         const newAccount = await db.query(
-            'INSERT INTO accounts (email, password, activation_link) VALUES ($1, $2, $3) RETURNING *', 
+            'INSERT INTO accounts (email, password, activation_link) VALUES ($1, $2, $3) RETURNING *;', 
             [email, passwordHash, activationLink]
         );
 
@@ -42,6 +42,14 @@ class AccountService {
                 refresh_token: tokens.refreshToken
             }
         };
+    }
+
+    async login(email, password) {
+        // TODO: Handle login logic
+    }
+
+    async activate(activationLink) {
+        await db.query('UPDATE accounts SET is_activated=true WHERE activation_link=$1;', [activationLink]);
     }
 }
 

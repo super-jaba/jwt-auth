@@ -3,7 +3,7 @@ CREATE TABLE accounts(
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     is_activated BOOLEAN DEFAULT false,
-    activation_link VARCHAR(255) NOT NULL
+    activation_link VARCHAR(255) UNIQUE NOT NULL
 );
 
 CREATE TABLE tokens(

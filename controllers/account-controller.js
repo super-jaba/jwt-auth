@@ -44,7 +44,11 @@ class AccountContoller {
 
     async activate(req, res, next) {
         try {
-            // TODO: Handle activate controller 
+            const activationLink = req.params.link;
+            await accountService.activate(activationLink);
+            return res.json({
+                message: 'Account successfully activated.'
+            });
         } catch (e) {
            next(e); 
         }
