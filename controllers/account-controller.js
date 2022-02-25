@@ -46,9 +46,7 @@ class AccountContoller {
         try {
             const activationLink = req.params.link;
             await accountService.activate(activationLink);
-            return res.json({
-                message: 'Account successfully activated.'
-            });
+            return res.redirect(process.env.CLIENT_URL);  // Redirects to home after activation
         } catch (e) {
            next(e); 
         }

@@ -28,7 +28,10 @@ class AccountService {
         );
 
         // Send activation email
-        await mailService.sendActivationMail(email, activationLink);
+        await mailService.sendActivationMail(
+            email, 
+            `${process.env.API_URL}/api/account/activate/${activationLink}`
+        );
 
         // Generate auth tokens
         const userDto = new UserDto(newAccount.rows[0]);
