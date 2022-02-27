@@ -10,7 +10,10 @@ const ApiError = require('../exceptions/api-error');
 class AccountService {
     async registration(email, password) {
         // Check if user with credentials specified already exists in DB
-        const candidate = await db.query('SELECT * FROM accounts WHERE email = $1;', [email]);
+        const candidate = await db.query(
+            'SELECT * FROM accounts WHERE email = $1;', 
+            [email]
+        );
         if (candidate.rows[0]) {
             throw ApiError.BadRequestError(`User with email ${email} already exists.`);
         }
@@ -39,7 +42,7 @@ class AccountService {
         await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
         return {
-            user: { ...newAccount.rows[0] },
+            user: { ...userDto },
             tokens: { 
                 access_token: tokens.accessToken,
                 refresh_token: tokens.refreshToken
@@ -48,11 +51,78 @@ class AccountService {
     }
 
     async login(email, password) {
-        // TODO: Handle login logic
+        const candidate = await db.query(
+            'SELECT * FROM accounts WHERE email=$1;', 
+            [email]
+        );
+        if (!candidate.rows[0]) {
+            throw ApiError.BadRequestError('User not found.');
+        }
+
+        // Comparing password hashes
+        const passwordEquality = await bcrypt.compare(password, candidate.rows[0].password);
+        if (!passwordEquality) {
+            throw ApiError.BadRequestError('Invalid credentials.');
+        }
+
+        const userDto = new UserDto(candidate.rows[0]);
+
+        const tokens = tokenService.generateTokens({...userDto});
+        await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+        return {
+            user: { ...userDto },
+            tokens: { 
+                access_token: tokens.accessToken,
+                refresh_token: tokens.refreshToken
+            }
+        };
+    }
+
+    async logout(refreshToken) {
+        // All we need to do is just delete token specified in the DB
+        await tokenService.removeToken(refreshToken);
     }
 
     async activate(activationLink) {
-        await db.query('UPDATE accounts SET is_activated=true WHERE activation_link=$1;', [activationLink]);
+        await db.query(
+            'UPDATE accounts SET is_activated=true WHERE activation_link=$1;', 
+            [activationLink]
+        );
+    }
+
+    async refresh(token) {
+        if(!refreshToken) {
+            throw ApiError.UnauthorizedError();
+        }
+
+        // Validating token
+        const userData = tokenService.validateRefreshToken(token); 
+
+        // Checking for token existence 
+        const tokenFromDB = await tokenService.findToken(token);
+        if (!userData || !tokenFromDB) {
+            throw ApiError.UnauthorizedError();
+        }
+
+        // Finding user to generate new tokens
+        const user = await db.query(
+            'SELECT * FROM accounts WHERE id=$1;', 
+            [tokenFromDB.user_id]
+        );
+        const userDto = new UserDto(user);
+
+        // Generating and saving new pair of tokens
+        const tokens = tokenService.generateTokens({...userDto});
+        await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+        return {
+            user: { ...userDto },
+            tokens: { 
+                access_token: tokens.accessToken,
+                refresh_token: tokens.refreshToken
+            }
+        };
     }
 }
 
