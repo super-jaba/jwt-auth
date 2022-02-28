@@ -5,7 +5,10 @@ This repository is an independent auth component for your backend.
 **Briefly about:** JWT *access* and *refresh* tokens, PostgreSQL as a storage.
 
 ## Overview
-***TODO***
+The component provides full *JWT* auth including this features:
+- Basic email-password auth logic
+- Account creation confirmation via email
+- Cookie management logic to provide invisible session control
 
 ## Project structure
 ***TODO***
@@ -27,6 +30,10 @@ This repository is an independent auth component for your backend.
 3. Create `.env` file in root directory of your project. 
 4. Fill the `.env` properties
     > If you don't know how to set _environment_ properties just google it! :upside_down_face:
+   
     ***TODO***
 5. ***TODO***
+
+## How can you improve this component in your project?
+***TODO***
     
