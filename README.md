@@ -14,8 +14,9 @@ The component provides full *JWT* auth including this features:
 ***TODO***
 
 ## Setting up
-1. Clone this repository to your project using `git clone` or any other convenient method.
-2. Install required **npm** dependencies
+1. Set up your *npm* project using `npm init`
+2. Clone this repository to your project using `git clone` or any other convenient method.
+3. Install required **npm** dependencies
     - bcryptjs
     - cookie-parser
     - cors
@@ -27,8 +28,8 @@ The component provides full *JWT* auth including this features:
     - nodemon _(for dev regime)_
     - pg
     - uuid
-3. Create `.env` file in root directory of your project. 
-4. Fill the `.env` properties
+4. Create `.env` file in root directory of your project. 
+5. Fill the `.env` properties
     > If you don't know how to set _environment_ properties just google it! :upside_down_face:
    
     ***TODO***
