@@ -38,8 +38,19 @@ The component provides full *JWT* auth including this features:
     - `PG_HOST`=your_postgres_host (_localhost_ in my case)
     - `PG_PORT`=your_postgres_port (default port for postgres is 5432)
     - `PORT`=your_server_port (8000 as example)
-5. ***TODO***
+5. _(Optional)_ set up a terminal command to run server in **dev** regime
+    
+    Open **package.json** in the root directory of your project.
+    
+    Find the **scripts** block and add `"dev": "nodemon index.js"` into it.
+    
+    Save the file.
+6. Run **index.js** using `node index.js` or `npm run dev`
 
 ## How can you improve this component in your project?
-***TODO***
-    
+Unlikely for this component it cannot be applied for all projects as it is here.
+
+But you can perform neccessary updates with minimal efforts like
+    - make the `tokens` table store IPs & devices for better security and user experience
+    - configure JWT payloads for _access_ & _refresh_ tokens (add roles as example)
+    - And of course, add more routes!
