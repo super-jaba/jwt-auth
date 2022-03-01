@@ -48,7 +48,7 @@ The component provides full *JWT* auth including this features:
 6. Run **index.js** using `node index.js` or `npm run dev`
 
 ## How can you improve this component in your project?
-Unlikely, the state of this component is enough be applied for all projects.
+Unlikely the state of this component is enough be applied for all projects.
 
 But you can perform neccessary updates with minimal efforts like
   - make the `tokens` table store IPs & devices for better security and user experience
