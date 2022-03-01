@@ -33,10 +33,11 @@ The component provides full *JWT* auth including this features:
     - `CLIENT_URL`=your_frontend_url (such as `API_URL`)
     - `JWT_ACCESS_SECRET`=Y0ur_$ecRET_keY_F0R_jWt_@cce$$_t0KeN
     - `JWT_REFRESH_SECRET`=$uCh_@$_axe$_bUT_4_ReFresh
-    - `PG_USER`=your_postgres_user
-    - `PG_PASSWORD`=your_postgres_password
+    - `PG_DATABASE`=your_postgres_db
     - `PG_HOST`=your_postgres_host (_localhost_ in my case)
+    - `PG_PASSWORD`=your_postgres_password
     - `PG_PORT`=your_postgres_port (default port for postgres is 5432)
+    - `PG_USER`=your_postgres_user
     - `PORT`=your_server_port (8000 as example)
 5. _(Optional)_ set up a terminal command to run server in **dev** regime
     
