@@ -51,6 +51,6 @@ The component provides full *JWT* auth including this features:
 Unlikely, the state of this component is enough be applied for all projects.
 
 But you can perform neccessary updates with minimal efforts like
-    - make the `tokens` table store IPs & devices for better security and user experience
-    - configure JWT payloads for _access_ & _refresh_ tokens (add roles as example)
-    - And of course, add more routes!
+  - make the `tokens` table store IPs & devices for better security and user experience
+  - configure JWT payloads for _access_ & _refresh_ tokens (add roles as example)
+  - And of course, add more routes!
